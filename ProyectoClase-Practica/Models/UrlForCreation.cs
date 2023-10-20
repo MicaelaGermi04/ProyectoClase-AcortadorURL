@@ -3,8 +3,8 @@
 namespace ProyectoClase_Practica.Models
 {
     public class UrlForCreations
-    { 
-        [Required]
-        public string OriginalUrl { get; set; } = string.Empty; //Valor vacion por defecto
+    {
+        public int Id { get; set; }
+        public string LongUrl { get; set; }
     }
 }
