@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoClase_Practica.Data.Interfaces;
 using System.Text;
 using ProyectoClase_Practica.Data.Implementations;
 using ProyectoClase_Practica.Entities;
 using ProyectoClase_Practica.Models;
-using System;
 
-namespace URLShortener.Controllers
+namespace ProyectoClase_Practica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -46,6 +44,7 @@ namespace URLShortener.Controllers
             {
                 ShortUrl = shortUrl,
                 LongUrl = urlForCreations.LongUrl,
+                CategoryId = urlForCreations.CategoryId,
             };
             _urlRepository.AddUrl(urlEntity);
             _urlRepository.SaveChanges();
@@ -58,8 +57,14 @@ namespace URLShortener.Controllers
         {
             UrlShortener url = _urlRepository.GetUrlByShortUrl(shortUrl);
 
-            if (url == null) { return NotFound(); }
-            return Redirect(url.LongUrl);
+            if (url == null)
+            { return NotFound(); }
+            else
+            {
+
+                return Redirect(url.LongUrl);
+            }
+
         }
 
         // Generador de URL corta

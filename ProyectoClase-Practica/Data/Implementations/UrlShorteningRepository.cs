@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProyectoClase_Practica.Data;
-using System.Globalization;
-using System;
-using ProyectoClase_Practica.Data.Interfaces;
+﻿using ProyectoClase_Practica.Data.Interfaces;
 using ProyectoClase_Practica.Entities;
 
 namespace ProyectoClase_Practica.Data.Implementations
@@ -21,7 +17,13 @@ namespace ProyectoClase_Practica.Data.Implementations
         }
         public UrlShortener GetUrlByShortUrl(string shortUrl)
         {
-            return _context.Urls.FirstOrDefault(u => u.ShortUrl == shortUrl);
+            
+            UrlShortener shortURL= _context.Urls.FirstOrDefault(u => u.ShortUrl == shortUrl);
+            shortURL.Visit = shortURL.Visit + 1;
+            _context.Urls.Update(shortURL);
+            _context.SaveChanges();
+            return shortURL;
+
         }
         public void AddUrl(UrlShortener url)
         {

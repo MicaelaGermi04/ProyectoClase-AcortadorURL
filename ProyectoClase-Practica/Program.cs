@@ -1,5 +1,7 @@
 using ProyectoClase_Practica.Data;
 using Microsoft.EntityFrameworkCore;
+using ProyectoClase_Practica.Data.Implementations;
+
 
 namespace ProyectoClase_Practica
 {
@@ -17,6 +19,7 @@ namespace ProyectoClase_Practica
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<UrlShortenerContext>(dbContextOptions => dbContextOptions.UseSqlite
             (builder.Configuration["ConnectionStrings:UrlshorterAPIDBConnectionString"]));
+            builder.Services.AddScoped<UrlShorteningRepository>();
 
             var app = builder.Build();
 

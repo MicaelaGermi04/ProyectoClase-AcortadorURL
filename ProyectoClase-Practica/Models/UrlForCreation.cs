@@ -6,5 +6,6 @@ namespace ProyectoClase_Practica.Models
     {
         public int Id { get; set; }
         public string LongUrl { get; set; }
+        public int CategoryId { get; set; }
     }
 }
