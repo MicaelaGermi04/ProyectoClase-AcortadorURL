@@ -10,6 +10,7 @@ namespace ProyectoClase_Practica.Data
     public class UrlShortenerContext : DbContext //hereda
     {
         public DbSet<UrlShortener> Urls { get; set; }
+        public DbSet<User> Users { get; set; }
         public UrlShortenerContext(DbContextOptions<UrlShortenerContext> options) : base(options) { } //Llama al constructor de DbContext que es el que acepta las opciones
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,10 +54,30 @@ namespace ProyectoClase_Practica.Data
                 Id = 3,
                 Name = "Categoria 3"
             };
+            User karen = new User()
+            {
+                Id = 1,
+                FirstName = "Karen",
+                LastName = "Lasot",
+                Password = "Pa$$w0rd",
+                UserName = "karenbailapiola@gmail.com",
+                Rol = Models.Enum.Rol.Admin,
+            };
+            User luis = new User()
+            {
+                Id = 2,
+                FirstName = "Luis Gonzalez",
+                LastName = "Gonzales",
+                Password = "lamismadesiempre",
+                UserName = "elluismidetotoras@gmail.com",
+            };
+
+
             modelBuilder.Entity<Category>().HasData(
                 Categoria1, Categoria2, Categoria3);
             modelBuilder.Entity<UrlShortener>().HasData(
                 url1, url2, url3);
+            modelBuilder.Entity<User>().HasData(karen, luis);
             base.OnModelCreating(modelBuilder);
         }
     }

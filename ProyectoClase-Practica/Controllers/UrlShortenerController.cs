@@ -2,7 +2,7 @@
 using System.Text;
 using ProyectoClase_Practica.Data.Implementations;
 using ProyectoClase_Practica.Entities;
-using ProyectoClase_Practica.Models;
+using ProyectoClase_Practica.Models.Dto;
 
 namespace ProyectoClase_Practica.Controllers
 {

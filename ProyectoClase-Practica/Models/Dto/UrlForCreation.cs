@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProyectoClase_Practica.Models
+namespace ProyectoClase_Practica.Models.Dto
 {
     public class UrlForCreations
     {
