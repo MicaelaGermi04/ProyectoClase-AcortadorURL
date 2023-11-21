@@ -23,6 +23,7 @@ namespace ProyectoClase_Practica.Data.Implementations
         public void AddUrl(UrlShortener url)
         {
             _context.Urls.Add(url);
+            _context.SaveChanges();
         }
         public void VisitorCounter(int id)
         {

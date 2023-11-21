@@ -31,16 +31,7 @@ namespace ProyectoClase_Practica.Data
                 Id = 3,
                 Name = "Categoria 3"
             };
-            UrlShortener url3 = new UrlShortener()
-            {
-                Id = 3,
-                LongUrl = "https://www.youtube.com/watch?v=8SOr5IEAxbc&ab_channel=PeloMusicGroup",
-                ShortUrl = "4fOd9S",
-                CategoryId = 2,
-                UserId = 2,
-
-            };
-
+            
             User karen = new User()
             {
                 Id = 1,
@@ -76,7 +67,16 @@ namespace ProyectoClase_Practica.Data
                 UserId= 1,
 
             };
- 
+            UrlShortener url3 = new UrlShortener()
+            {
+                Id = 3,
+                LongUrl = "https://www.youtube.com/watch?v=8SOr5IEAxbc&ab_channel=PeloMusicGroup",
+                ShortUrl = "4fOd9S",
+                CategoryId = 2,
+                UserId = 2,
+
+            };
+
 
             modelBuilder.Entity<Category>().HasData(
                 Categoria1, Categoria2, Categoria3);
