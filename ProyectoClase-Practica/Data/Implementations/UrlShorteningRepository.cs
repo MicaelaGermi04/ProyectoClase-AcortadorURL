@@ -17,21 +17,21 @@ namespace ProyectoClase_Practica.Data.Implementations
         }
         public UrlShortener GetUrlByShortUrl(string shortUrl)
         {
-            
-            UrlShortener shortURL= _context.Urls.FirstOrDefault(u => u.ShortUrl == shortUrl);
-            shortURL.Visit = shortURL.Visit + 1;
-            _context.Urls.Update(shortURL);
-            _context.SaveChanges();
-            return shortURL;
+            return _context.Urls.FirstOrDefault(u => u.ShortUrl == shortUrl);
 
         }
         public void AddUrl(UrlShortener url)
         {
             _context.Urls.Add(url);
         }
-        public void SaveChanges()
+        public void VisitorCounter(int id)
         {
-            _context.SaveChanges();
+            var url= _context.Urls.FirstOrDefault(u => u.Id == id);
+            if (url != null)
+            {
+                url.Visit++;
+                _context.SaveChanges();
+            }
         }
     }
 };

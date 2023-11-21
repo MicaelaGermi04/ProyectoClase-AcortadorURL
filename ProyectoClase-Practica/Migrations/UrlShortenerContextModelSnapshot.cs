@@ -28,7 +28,7 @@ namespace ProyectoClase_Practica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -65,12 +65,17 @@ namespace ProyectoClase_Practica.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Visit")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Urls");
 
@@ -81,6 +86,7 @@ namespace ProyectoClase_Practica.Migrations
                             CategoryId = 1,
                             LongUrl = "https://www.youtube.com/watch?v=8cKvvmPwgP4&list=RD8cKvvmPwgP4&start_radio=1&ab_channel=ElCanserbero",
                             ShortUrl = "g9Kr21",
+                            UserId = 1,
                             Visit = 0
                         },
                         new
@@ -89,6 +95,7 @@ namespace ProyectoClase_Practica.Migrations
                             CategoryId = 1,
                             LongUrl = "https://www.youtube.com/watch?v=v_zZmsFZDaM&list=RD8cKvvmPwgP4&index=2&ab_channel=elvecindariocalle13",
                             ShortUrl = "jrE43Ps",
+                            UserId = 1,
                             Visit = 0
                         },
                         new
@@ -97,6 +104,7 @@ namespace ProyectoClase_Practica.Migrations
                             CategoryId = 2,
                             LongUrl = "https://www.youtube.com/watch?v=8SOr5IEAxbc&ab_channel=PeloMusicGroup",
                             ShortUrl = "4fOd9S",
+                            UserId = 2,
                             Visit = 0
                         });
                 });
@@ -159,7 +167,15 @@ namespace ProyectoClase_Practica.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProyectoClase_Practica.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,9 +12,8 @@ namespace ProyectoClase_Practica.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
-        [Required]
         public string UserName { get; set; }
-
+        public List<UrlShortener> Urls { get; set; }
         public Rol Rol { get; set; } = Rol.User;
     }
 }

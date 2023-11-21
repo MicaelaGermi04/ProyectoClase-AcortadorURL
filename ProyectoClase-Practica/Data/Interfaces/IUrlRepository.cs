@@ -7,6 +7,6 @@ namespace ProyectoClase_Practica.Data.Interfaces
         UrlShortener GetUrlById(int id);
         UrlShortener GetUrlByShortUrl(string shortUrl);
         void AddUrl(UrlShortener url);
-        void SaveChanges();
+        void VisitorCounter(int id);
     }
 };

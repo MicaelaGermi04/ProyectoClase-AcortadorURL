@@ -11,49 +11,36 @@ namespace ProyectoClase_Practica.Data
     {
         public DbSet<UrlShortener> Urls { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public UrlShortenerContext(DbContextOptions<UrlShortenerContext> options) : base(options) { } //Llama al constructor de DbContext que es el que acepta las opciones
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            UrlShortener url1 = new UrlShortener()
+            Category Categoria1 = new Category()
             {
                 Id = 1,
-                LongUrl = "https://www.youtube.com/watch?v=8cKvvmPwgP4&list=RD8cKvvmPwgP4&start_radio=1&ab_channel=ElCanserbero",
-                ShortUrl = "g9Kr21",
-                CategoryId = 1,
-
+                Name = "Categoria 1"
             };
-            UrlShortener url2 = new UrlShortener()
+            Category Categoria2 = new Category()
             {
                 Id = 2,
-                LongUrl = "https://www.youtube.com/watch?v=v_zZmsFZDaM&list=RD8cKvvmPwgP4&index=2&ab_channel=elvecindariocalle13",
-                ShortUrl = "jrE43Ps",
-                CategoryId = 1,
-
+                Name = "Categoria 2"
+            };
+            Category Categoria3 = new Category()
+            {
+                Id = 3,
+                Name = "Categoria 3"
             };
             UrlShortener url3 = new UrlShortener()
             {
                 Id = 3,
                 LongUrl = "https://www.youtube.com/watch?v=8SOr5IEAxbc&ab_channel=PeloMusicGroup",
                 ShortUrl = "4fOd9S",
-                CategoryId= 2,
+                CategoryId = 2,
+                UserId = 2,
 
             };
-            Category Categoria1=new Category()
-            {
-                Id = 1,
-                Name = "Categoria 1"
-            };
-            Category Categoria2=new Category()
-            {
-                Id = 2,
-                Name = "Categoria 2"
-            };
-            Category Categoria3=new Category()
-            {
-                Id = 3,
-                Name = "Categoria 3"
-            };
+
             User karen = new User()
             {
                 Id = 1,
@@ -72,12 +59,43 @@ namespace ProyectoClase_Practica.Data
                 UserName = "elluismidetotoras@gmail.com",
             };
 
+            UrlShortener url1 = new UrlShortener()
+            {
+                Id = 1,
+                LongUrl = "https://www.youtube.com/watch?v=8cKvvmPwgP4&list=RD8cKvvmPwgP4&start_radio=1&ab_channel=ElCanserbero",
+                ShortUrl = "g9Kr21",
+                CategoryId = 1,
+                UserId= 1,
+            };
+            UrlShortener url2 = new UrlShortener()
+            {
+                Id = 2,
+                LongUrl = "https://www.youtube.com/watch?v=v_zZmsFZDaM&list=RD8cKvvmPwgP4&index=2&ab_channel=elvecindariocalle13",
+                ShortUrl = "jrE43Ps",
+                CategoryId = 1,
+                UserId= 1,
+
+            };
+ 
 
             modelBuilder.Entity<Category>().HasData(
                 Categoria1, Categoria2, Categoria3);
             modelBuilder.Entity<UrlShortener>().HasData(
                 url1, url2, url3);
             modelBuilder.Entity<User>().HasData(karen, luis);
+
+            //Relacion de 1 a M
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Urls)
+                .WithOne(ur => ur.User)
+                .HasForeignKey(ur => ur.UserId);
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UrlShortener>()
+                .HasOne(url => url.Category)
+                .WithMany()
+                .HasForeignKey(c => c.CategoryId);
+
             base.OnModelCreating(modelBuilder);
         }
     }

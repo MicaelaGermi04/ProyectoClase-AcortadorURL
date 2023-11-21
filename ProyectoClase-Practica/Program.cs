@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ProyectoClase_Practica.Data.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace ProyectoClase_Practica
 {
@@ -16,7 +17,11 @@ namespace ProyectoClase_Practica
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.WriteIndented = true;
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(setupAction =>
@@ -69,6 +74,9 @@ namespace ProyectoClase_Practica
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(
+             options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+                 );
             app.UseHttpsRedirection();
 
             app.UseAuthentication();

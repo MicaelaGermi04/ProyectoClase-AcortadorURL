@@ -3,6 +3,7 @@ using System.Text;
 using ProyectoClase_Practica.Data.Implementations;
 using ProyectoClase_Practica.Entities;
 using ProyectoClase_Practica.Models.Dto;
+using ProyectoClase_Practica.Data.Interfaces;
 
 namespace ProyectoClase_Practica.Controllers
 {
@@ -10,9 +11,9 @@ namespace ProyectoClase_Practica.Controllers
     [ApiController]
     public class UrlShortenerController : ControllerBase
     {
-        private readonly UrlShorteningRepository _urlRepository;
+        private readonly IUrlRepository _urlRepository;
 
-        public UrlShortenerController(UrlShorteningRepository urlRepository)
+        public UrlShortenerController(IUrlRepository urlRepository)
         {
             _urlRepository = urlRepository;
         }
@@ -45,9 +46,9 @@ namespace ProyectoClase_Practica.Controllers
                 ShortUrl = shortUrl,
                 LongUrl = urlForCreations.LongUrl,
                 CategoryId = urlForCreations.CategoryId,
+                UserId = urlForCreations.UserId,
             };
             _urlRepository.AddUrl(urlEntity);
-            _urlRepository.SaveChanges();
 
             // Devolver una respuesta indicando que la URL corta se ha creado con éxito
             return Created($"api/url/{shortUrl}", urlEntity);
@@ -58,12 +59,11 @@ namespace ProyectoClase_Practica.Controllers
             UrlShortener url = _urlRepository.GetUrlByShortUrl(shortUrl);
 
             if (url == null)
-            { return NotFound(); }
-            else
-            {
-
-                return Redirect(url.LongUrl);
+            { 
+                return NotFound(); 
             }
+            _urlRepository.VisitorCounter(url.Id);
+            return Redirect(url.LongUrl);
 
         }
 
